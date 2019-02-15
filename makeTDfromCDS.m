@@ -1,20 +1,20 @@
 %% Pre-processing parameters
 clear meta
-meta.monkey='Chips';
-meta.date='20170907';
-meta.task={'TRT'}; % for the loading of cds
-meta.taskAlias={'TRT_001'}; % for the filename (cell array list for files to load and save)
+meta.monkey='Han';
+meta.date='20171116';
+meta.task={'COactpas'}; % for the loading of cds
+meta.taskAlias={'CO_001'}; % for the filename (cell array list for files to load and save)
 meta.epochname={}; % only used for sessions with multiple files to be combined into one TD
-meta.td_taskname = 'TRT'; % for saving the TD
+meta.td_taskname = 'CO'; % for saving the TD
 meta.EMGrecorded = false; % whether or not EMG was recorded
-meta.motorcontrol = false; % whether or not motor control signals were recorded
+meta.motorcontrol = true; % whether or not motor control signals were recorded
 meta.markered = true; % whether or not the colorTracking has been markered
 
 %% Set up meta fields
-meta.localdatafolder=fullfile('C:\Users\rhc307\data\'); % folder with data-td and working data folder
+meta.localdatafolder=fullfile('/Users/kylepblum/LimbLab/workingData'); % folder with data-td and working data folder
 meta.cdslibrary=fullfile(meta.localdatafolder,'cds-library');
 meta.tdlibrary=fullfile(meta.localdatafolder,'td-library');
-meta.remotefolder=fullfile('Z:\limblab\User_folders\Raeed');
+% meta.remotefolder=fullfile('Z:\limblab\User_folders\Raeed');
 
 %% Make TD
 spike_routine = @processCDSspikes;
