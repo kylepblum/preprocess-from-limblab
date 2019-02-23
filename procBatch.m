@@ -26,10 +26,11 @@ load_params = struct(...
         'bumpDir',...
         'spaceNum',...
         }},...
-     'extract_emg',true);
+     'extract_emg',true,...
+     'bin_size',0.001);
 
 td_cell = cell(length(names),1);
-for i = 6 %:length(names)
+for i = 1%:length(names)
     td_cell{i} = loadTDfromCDS(fullfile(cdslib,names{i}),load_params);
     fprintf('File %d processed\n',i)
 end
@@ -39,7 +40,7 @@ savedir = '/Users/kylepblum/LimbLab/workingData/td-library';
 
 file_info_cell = cell(length(names),6);
 
-for i = 6%1:length(names)
+for i = 1:length(names)
     file_info_cell(i,:) = strsplit(names{i},{'_','.'});
 end
 
@@ -49,9 +50,9 @@ file_info = struct(...
     'filenum',file_info_cell(:,5));
 
 % for i = [1,4:length(td_cell)]
-for i = [6]
+for i = 1:length(names)
     trial_data = td_cell{i};
-    save(fullfile(savedir,sprintf('%s_%s_COactpas_TD.mat',file_info(i).monkey,file_info(i).date)),'trial_data')
+    save(fullfile(savedir,sprintf('%s_%s_TRT_TD1ms.mat',file_info(i).monkey,file_info(i).date)),'trial_data')
     fprintf('File %d saved\n',i)
 end
 
