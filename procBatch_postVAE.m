@@ -34,12 +34,32 @@ for i = 1%:length(names)
     fprintf('File %d processed\n',i)
 end
 
+%% Deal with VAE spikes
+% Load csv with VAE spikes first
+td_cell{1}.VAE_spikes = Han20160325RW50msVAE;
+trial_data = td_cell{1};
 
+%Deal with size differences by appending zeros
+td_length = size(trial_data.pos,1);
+rates_length = size(trial_data.VAE_spikes,1);
+rates_width = size(trial_data.VAE_spikes,2);
+td_length_diff = td_length - rates_length;
+trial_data.VAE_spikes = [trial_data.VAE_spikes; zeros(td_length_diff,rates_width)];
+
+
+
+smoothVAE.signals = {'VAE_spikes'};
+smoothVAE.kernel_width = 0.05;
+smoothVAE.calc_rate = true;
+trial_data = smoothSignals(trial_data,smoothVAE);
+
+VAE_unit_guide = zeros(size(trial_data.VAE_spikes,2),2);
+trial_data.VAE_unit_guide = VAE_unit_guide;
 
 %%
 savedir = '/Users/kylepblum/LimbLab/workingData/td-library';
 
-trial_data = td_cell{1};
+% trial_data = td_cell{1};
 
 file_info_cell = cell(length(names),6);
 
@@ -71,7 +91,7 @@ for i = 1%:length(names)
     params.split_idx_name = 'idx_startTime';
     trial_data = splitTD(trial_data,params);
     
-    save(fullfile(savedir,sprintf('%s_%s_RW_50ms_smooth.mat',file_info(i).monkey,file_info(i).date)),'trial_data','-v7.3')
+    save(fullfile(savedir,sprintf('%s_%s_RW_50ms_VAE.mat',file_info(i).monkey,file_info(i).date)),'trial_data','-v7.3')
     fprintf('File %d saved\n',i)
 end
 
