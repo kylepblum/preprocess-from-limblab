@@ -2,7 +2,7 @@
 cdslib = 'C:\Users\kpb8927\data\cds-library';
 
 
-files = dir(fullfile(cdslib,'*TRT*'));
+files = dir(fullfile(cdslib,'*COactpas*'));
 names = vertcat({files.name})';
 
 load_params = struct(...
@@ -82,4 +82,25 @@ for i = 1%:length(names)
     save(fullfile(savedir,sprintf('%s_%s_TRT_5ms.mat',file_info(i).monkey,file_info(i).date)),'trial_data','-v7.3')
     fprintf('File %d saved\n',i)
 end
+
+%% Run spindle model before this
+
+% for i = [1,4:length(td_cell)]
+for i = 1%:length(names)
+   
+    for trial = 1:numel(trial_data)
+        for mus = 1:numel(spindleData)
+            trial_data(trial).spindles(:,mus) = spindleData(mus).SimOut(trial).r;
+            trial_data(trial).spindleMeta(mus) = spindleData(mus).metaParams;
+        end
+    end
+   
+%     save(fullfile(savedir,sprintf('Han_20171106_TRT_5ms_spindle.mat','trial_data','-v7.3')
+%     fprintf('File %d saved\n',i)
+end
+
+
+
+
+
 

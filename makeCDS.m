@@ -3,15 +3,15 @@ clear meta altMeta
 meta.lab=6;
 meta.ranBy='Kyle';
 meta.monkey='Duncan';
-meta.date='20190417';
-meta.task={'RR'}; % for the loading of cds
-meta.taskAlias={'RR_001'}; % for the filename (cell array list for files to load and save)
+meta.date='20190524';
+meta.task={'CObump'}; % for the loading of cds
+meta.taskAlias={'CObumpmove_001'}; % for the filename (cell array list for files to load and save)
 meta.EMGrecorded = false; % whether or not EMG was recorded
 meta.motionTracked = false; % whether or not we have motion tracking
-meta.sorted = false; % whether or not the neurons have already been sorted
+meta.sorted = true; % whether or not the neurons have already been sorted
 meta.markered = false; % whether or not the colorTracking has already been markered
-meta.array='LeftS1Area2'; % for the loading of cds
-meta.copyfiles=true; % whether or not the script should copy files
+meta.array='LeftS1'; % for the loading of cds
+meta.copyfiles=false; % whether or not the script should copy files
 
 %% Set up meta fields
 meta.homefolder=fullfile('C:\Users\kpb8927'); % home user folder
@@ -24,7 +24,7 @@ meta.remotefolder=fullfile(meta.FSMResfolder,'limblab','User_folders','Kyle');
 meta.mapfilefolder=fullfile(meta.remotefolder,'metafiles','mapfiles'); % folder with mapfiles
 meta.semirawfolder=fullfile(meta.remotefolder,'semi-raw');
 meta.markersfolder=fullfile(meta.semirawfolder,'markers');
-meta.sortedfolder=fullfile(meta.semirawfolder,'sorted');
+meta.sortedfolder=fullfile(meta.remotefolder,'sorted');
 meta.opensimsettingsfolder=fullfile(meta.remotefolder,'monkeyArmModel');
 
 if strcmp(meta.monkey,'Chips')
@@ -32,9 +32,9 @@ if strcmp(meta.monkey,'Chips')
     meta.mapfile=fullfile(meta.mapfilefolder,'Chips\left_S1\SN 6251-001455.cmp');
     meta.arrayAlias='area2'; % for the filename
 elseif strcmp(meta.monkey,'Duncan')
-    meta.rawfolder=fullfile(meta.FSMResfolder,'data\Duncan_17L1\RAW');
+    meta.rawfolder=fullfile(meta.FSMResfolder,'data\Duncan_17L1\RAW\CObumpmove');
     meta.mapfile=fullfile(meta.mapfilefolder,'Duncan\left_S1\SN 6251-002087.cmp');
-    meta.arrayAlias='leftS1'; % for the filenam
+    meta.arrayAlias='leftS1'; % for the filename
 elseif strcmp(meta.monkey,'Han')
     meta.rawfolder=fullfile(meta.FSMResfolder,'data\Han_13B1\Raw');
     meta.mapfile=fullfile(meta.mapfilefolder,'Han\left_S1\SN 6251-001459.cmp');

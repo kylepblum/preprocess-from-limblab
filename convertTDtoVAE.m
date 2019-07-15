@@ -1,23 +1,27 @@
 function vae_data = convertTDtoVAE(trial_data,params)
-
+pos = [];
 vel = [];
+force = [];
+jointPos = [];
 jointVel = [];
+emg = [];
+musclePos = [];
 muscleVel = [];
-
+spindles = [];
 
 for trial = 1:length(trial_data)
-   vel = [vel; trial_data(trial).vel];
-   jointVel = [jointVel; trial_data(trial).joint_vel];
+    pos = [pos; trial_data(trial).pos];
+    vel = [vel; trial_data(trial).vel];
+    force = [force; trial_data(trial).force(:,1:3)];
+    jointPos = [jointPos; trial_data(trial).joint_ang];
+    jointVel = [jointVel; trial_data(trial).joint_vel];
+    emg = [emg; trial_data(trial).emg];
+    musclePos = [musclePos; trial_data(trial).musLenRel];
+    muscleVel = [muscleVel; trial_data(trial).musVelRel];
+    spindles = [spindles; trial_data(trial).spindles];
    
-   if isfield(trial_data,'musVelRel')
-       muscleVel = [muscleVel; trial_data(trial).musVelRel];
-   elseif isfield(trial_data,'muscle_vel')
-       muscleVel = [muscleVel; trial_data(trial).muscle_vel];
-   end
-    
-    
 end
 
-vae_data = [vel jointVel muscleVel];
+vae_data = [pos vel force jointPos jointVel emg musclePos muscleVel spindles];
       
 end
